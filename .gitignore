@@ -1,0 +1,58 @@
+# Node.js modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+jspm_packages/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build output
+dist/
+build/
+.tmp/
+
+# IDE specific files
+.vscode/
+.idea/
+*.swp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Debugger configurations
+*.pid
+
+# Coverage files
+coverage/
+.nyc_output/
+
+# Cache
+.cache/
+*.cache
+
+# Temporary files
+*.tmp
+*.temp
+
+# Test artifacts
+*.tgz
+*.test.js
+*.spec.js
+jest-config.js
+
+# Ignore Yarn & npm specific files
+.pnp.*
+.pnpm-debug.log
