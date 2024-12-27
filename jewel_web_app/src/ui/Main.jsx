@@ -1,13 +1,9 @@
-import PropTypes from "prop-types"
+import Home from "./Home"
 
 export default function Main() {
   return (
-    <div>
-       Main     
+    <div className="w-full absolute z-[-1] inset-0 h-full ">
+       <Home />     
     </div>
   )
-}
-
-Main.propTypes = {
-    childrens : PropTypes.object,
 }

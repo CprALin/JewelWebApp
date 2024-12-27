@@ -4,7 +4,7 @@ import NavBar from "./NavBar";
 
 export default function AppLayout() {
   return (
-    <div className="bg-primary-50 h-screen w-screen">
+    <div>
         <NavBar />
         <Main />
     </div>
