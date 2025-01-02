@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import scrollbarHide from 'tailwind-scrollbar-hide';
+
 export default {
   content: [
     "./index.html",
@@ -11,6 +13,16 @@ export default {
          dmSans : ['DM Sans' , 'serif'],
       },
       colors: {
+        text : {
+           1 : '#FAF6F0'
+        },
+        cards : {
+           1 : '#1E1E1E'
+        },
+        background : {
+            1 : '#423A30',
+            2 : '#39342E'
+        },
         primary: { 
           50: '#FFF5EB', 
           100: '#FFF0D5', 
@@ -50,6 +62,8 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    scrollbarHide,
+  ],
 }
 

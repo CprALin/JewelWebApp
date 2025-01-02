@@ -1,16 +1,10 @@
-import { Helmet } from "react-helmet-async";
+import Button from "../components/Buton";
 
 export default function Home() {
   return (
-    <>
-        <Helmet>
-            <title>Cprava | Home</title>
-        </Helmet>
-        <div className="flex items-center justify-center">
-            <div className="w-screen h-screen bg-center bg-cover bg-no-repeat" style={{ backgroundImage : "url('../../public/abstract-gold-chain-presentation-rocks.jpg')"}} />
-            <button className="absolute w-80 h-20 mt-96 bg-black border border-black rounded-md text-primary-100">Show me</button>
-        </div>
-       
-    </>
+      <div className="flex items-center justify-center h-[700px]">
+          <div className="w-screen h-[700px] bg-center bg-background-2 bg-cover bg-no-repeat" style={{ backgroundImage : "url('/abstract-gold-chain-presentation-rocks.jpg')"}} />
+          <Button width={30} heigh={5}>Show Me</Button>
+      </div>
   )
 }
