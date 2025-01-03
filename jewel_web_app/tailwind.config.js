@@ -9,6 +9,9 @@ export default {
   darkMode : 'class',
   theme: {
     extend: {
+      boxShadow: {
+        'down-right': '6px 6px 15px rgba(0, 0, 0, 0.5)',
+      },
       fontFamily : {
          dmSans : ['DM Sans' , 'serif'],
       },

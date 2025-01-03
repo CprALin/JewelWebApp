@@ -1,11 +1,27 @@
 import { Link } from 'react-router-dom';
 import logo from '/white-logo.png';
+import { useEffect, useState } from 'react';
 
 export default function NavBar() {
-  
-    
+  const [ isHidden , setIsHidden] = useState(false);
+  const [ prevScrollPos , setPrevScrollPos ] = useState(0);
+
+  useEffect(() => {
+     const handleScroll = () => {
+        const currentScrollPos = window.scrollY;
+        setIsHidden(prevScrollPos > currentScrollPos);
+        setPrevScrollPos(currentScrollPos);
+     };
+
+     window.addEventListener('scroll' , handleScroll);
+
+     return() => {
+        window.removeEventListener('scroll' , handleScroll);
+     }
+  },[prevScrollPos]);
+
   return (
-    <div className="w-full h-20 fixed">
+    <div className={`w-full h-20 fixed transition-transform duration-300 ${isHidden ? 'transform -translate-y-full' : ''}`}>
         <div className="bg-black opacity-45 absolute inset-0"/>
         <div className="relative z-10 flex items-center justify-between h-full">
             <img src={logo} alt='logo' className='h-20 w-30'/>
