@@ -1,12 +1,11 @@
-import Main from "./Main";
-import NavBar from "./NavBar";
+import { Outlet } from "react-router";
+import AppNavigation from "./AppNavigation";
 
 export default function AppLayout() {
 
   return (
-    <div>
-        <NavBar />
-        <Main />
-    </div>
+    <AppNavigation>
+        <Outlet />
+    </AppNavigation>
   )
 }

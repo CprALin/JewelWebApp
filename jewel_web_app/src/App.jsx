@@ -1,7 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import AppLayout from "./ui/AppLayout"
-import Home from "./ui/Home"
 import { HelmetProvider } from "react-helmet-async"
+import Main from "./ui/Main"
+import Shop from "./ui/Shop"
 
 
 const router = createBrowserRouter([
@@ -10,8 +11,12 @@ const router = createBrowserRouter([
         children : [
             {
                path : '/',
-               element : <Home />
+               element : <Main />
             },
+            {
+              path : '/shop',
+              element : <Shop />
+            }
         ]
       }
 ])
