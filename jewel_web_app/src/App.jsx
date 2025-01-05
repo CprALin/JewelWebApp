@@ -7,6 +7,7 @@ import Shop from "./ui/Shop"
 import Cart from "./ui/Cart"
 import Profile from "./ui/Profile"
 import History from "./ui/History"
+import NotFound from "./NotFound"
 
 
 const router = createBrowserRouter([
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
               ]
             }
         ]
+      },
+      {
+         path : '*',
+         element : <NotFound />
       }
 ])
 

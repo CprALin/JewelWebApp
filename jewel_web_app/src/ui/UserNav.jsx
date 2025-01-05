@@ -6,10 +6,14 @@ import { IoHome } from "react-icons/io5";
 import { FaBasketShopping } from "react-icons/fa6";
 import { HiShoppingCart } from "react-icons/hi";
 import { FaHistory } from "react-icons/fa";
+import { TiUserAdd } from "react-icons/ti";
+import { TbDeviceIpadDollar } from "react-icons/tb";
 
 export default function UserNav() {
     const [activePage, setActivePage] = useState("shop"); 
     const navigate = useNavigate();
+
+    const user_role = 'admin';
 
     const handleNavigation = (id) => {
         setActivePage(id);
@@ -26,6 +30,8 @@ export default function UserNav() {
         { id: "shop", icon: <FaBasketShopping /> },
         { id: "cart", icon: <HiShoppingCart /> },
         { id: "history", icon: <FaHistory /> },
+        ...(user_role === 'admin' ? [ { id: "add" , icon : <TiUserAdd />} ] : []),
+        ...(user_role === 'seller' ? [ { id : "sell" , icon : <TbDeviceIpadDollar />} ] : [])
     ];
 
     return (
