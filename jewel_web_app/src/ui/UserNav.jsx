@@ -30,7 +30,7 @@ export default function UserNav() {
 
     return (
         <>
-            <div className="w-screen h-24 ">
+            <div className="w-screen h-24">
                 <div className="w-full h-full bg-black opacity-40" />
                 <div className="absolute top-2 left-[-4px]">
                     <img src={logo} alt="logo" className="h-20 w-30 cursor-pointer" />
