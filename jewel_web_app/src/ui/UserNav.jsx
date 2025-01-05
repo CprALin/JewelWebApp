@@ -13,7 +13,8 @@ export default function UserNav() {
     const [activePage, setActivePage] = useState("shop"); 
     const navigate = useNavigate();
 
-    const user_role = 'admin';
+    const user_role = 'user';
+    const isLogIn = false;
 
     const handleNavigation = (id) => {
         setActivePage(id);
@@ -25,11 +26,12 @@ export default function UserNav() {
     }
 
     const menuItems = [
-        { id: "profile", icon: <CgProfile /> },
+        ...(isLogIn ? [ { id: "profile", icon: <CgProfile /> } ] : []),
         { id: "/", icon: <IoHome /> },
         { id: "shop", icon: <FaBasketShopping /> },
-        { id: "cart", icon: <HiShoppingCart /> },
-        { id: "history", icon: <FaHistory /> },
+        ...(isLogIn ? [ 
+            { id: "cart", icon: <HiShoppingCart /> },
+            { id: "history", icon: <FaHistory /> } ] : []),
         ...(user_role === 'admin' ? [ { id: "add" , icon : <TiUserAdd />} ] : []),
         ...(user_role === 'seller' ? [ { id : "sell" , icon : <TbDeviceIpadDollar />} ] : [])
     ];
