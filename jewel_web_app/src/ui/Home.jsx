@@ -5,7 +5,7 @@ export default function Home() {
   const navigate = useNavigate();
 
   const handleShopPage = () => {
-     navigate('/shop');
+     navigate('/show/shop');
   }
 
   return (

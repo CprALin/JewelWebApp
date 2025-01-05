@@ -64,11 +64,11 @@ export default function NavBar() {
       <div className={`w-full h-20 fixed transition-transform duration-300 ${isHidden ? 'transform -translate-y-full' : ''}`}>
           <div className="bg-black opacity-45 absolute inset-0"/>
           <div className="relative z-10 flex items-center justify-between h-full">
-              <img src={logo} alt='logo' className='h-20 w-30'/>
+              <img src={logo} alt='logo' className='h-20 w-30 cursor-pointer'/>
               <ul className='flex items-center space-x-10 m-10 text-primary-100 font-sans font-semibold text-lg'>
                   <li><Link to="/#home" className={`text-glow ${currentHash === '#home' ? 'text-glow-active' : ''}`}>Home</Link></li>
                   <li><Link to='/#about' className={`text-glow ${currentHash === '#about' ? 'text-glow-active' : ''}`}>About</Link></li>
-                  <li><Link to="/shop" className='text-glow'>Shop</Link></li>
+                  <li><Link to="/show/shop" className='text-glow'>Shop</Link></li>
                   <li className='space-x-2'>
                       <button onClick={handleOpenLogin} className='hover:bg-dark-900 w-20 h-15 hover:border hover:border-dark-700 rounded-xl transition-all duration-300 ease-in'>LogIn</button>
                       <button onClick={handleOpenSignUp} className='bg-dark-900 w-20 h-15 border border-dark-700 rounded-xl'>SignUp</button>
