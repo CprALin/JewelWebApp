@@ -10,8 +10,9 @@ import History from "./ui/History"
 import NotFound from "./NotFound"
 import AddSeller from "./ui/AddSeller"
 import PropTypes from "prop-types"
+import AddJewel from "./ui/AddJewel"
 
-const userRole = 'admin';
+const userRole = 'seller';
 
 function RoleProtectedRoute({element , requiredRole , redirectPath}) {
    if(userRole !== requiredRole) {
@@ -51,7 +52,13 @@ const router = createBrowserRouter([
                  {
                     path : 'addSeller',
                     element : (
-                     <RoleProtectedRoute element={<AddSeller />} requiredRole="admin" redirectPath="/"/> 
+                        <RoleProtectedRoute element={<AddSeller />} requiredRole="admin" redirectPath="/"/> 
+                    )
+                 },
+                 {
+                    path : 'addJewel',
+                    element : (
+                        <RoleProtectedRoute element={<AddJewel />} requiredRole="seller" redirectPath="/"/>
                     )
                  }
               ]

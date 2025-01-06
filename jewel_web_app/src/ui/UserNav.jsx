@@ -14,7 +14,7 @@ export default function UserNav() {
     const [activePage, setActivePage] = useState(""); 
     const navigate = useNavigate();
 
-    const user_role = 'admin';
+    const user_role = 'seller';
     const isLogIn = true;
 
     const handleNavigation = (id) => {
@@ -42,7 +42,7 @@ export default function UserNav() {
             { id: "cart", icon: <HiShoppingCart /> },
             { id: "history", icon: <FaHistory /> } ] : []),
         ...(user_role === 'admin' ? [ { id: "addSeller" , icon : <TiUserAdd />} ] : []),
-        ...(user_role === 'seller' ? [ { id : "sell" , icon : <TbDeviceIpadDollar />} ] : [])
+        ...(user_role === 'seller' ? [ { id : "addJewel" , icon : <TbDeviceIpadDollar />} ] : [])
     ];
 
     return (
