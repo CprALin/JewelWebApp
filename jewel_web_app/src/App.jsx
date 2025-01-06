@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 import AppLayout from "./ui/AppLayout"
 import { HelmetProvider } from "react-helmet-async"
 import Main from "./ui/Main"
@@ -8,7 +8,17 @@ import Cart from "./ui/Cart"
 import Profile from "./ui/Profile"
 import History from "./ui/History"
 import NotFound from "./NotFound"
+import AddSeller from "./ui/AddSeller"
+import PropTypes from "prop-types"
 
+const userRole = 'admin';
+
+function RoleProtectedRoute({element , requiredRole , redirectPath}) {
+   if(userRole !== requiredRole) {
+      return <Navigate to={redirectPath} />
+   }
+   return element;
+}
 
 const router = createBrowserRouter([
       {
@@ -37,6 +47,12 @@ const router = createBrowserRouter([
                  {
                     path : 'history',
                     element : <History />
+                 },
+                 {
+                    path : 'addSeller',
+                    element : (
+                     <RoleProtectedRoute element={<AddSeller />} requiredRole="admin" redirectPath="/"/> 
+                    )
                  }
               ]
             }
@@ -58,3 +74,9 @@ function App() {
 }
 
 export default App
+
+RoleProtectedRoute.propTypes = {
+    element : PropTypes.any,
+    requiredRole : PropTypes.any,
+    redirectPath : PropTypes.any
+}

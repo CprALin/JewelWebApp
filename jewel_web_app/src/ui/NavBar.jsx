@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '/white-logo.png';
 import { useEffect, useState } from 'react';
 import Login from './Login';
 import SignUp from './SignUp';
+import test from '/test.jpg';
 
 export default function NavBar() {
     const [ isHidden ] = useState(false); //setIsHidden
@@ -10,6 +11,14 @@ export default function NavBar() {
     const [ currentHash , setCurrentHash ] = useState('#home');
     const [ visibleLogin , setVisibleLogin ] = useState(false);
     const [ visibleSignUp , setVisibleSignUp ] = useState(false);
+
+    const navigate = useNavigate();
+
+    const isLogin = true;
+
+    const handleProfilePage = () => {
+        navigate('/show/profile');
+    }
 
     const handleOpenLogin = () => {
         setVisibleLogin(true);
@@ -69,10 +78,19 @@ export default function NavBar() {
                   <li><Link to="/#home" className={`text-glow ${currentHash === '#home' ? 'text-glow-active' : ''}`}>Home</Link></li>
                   <li><Link to='/#about' className={`text-glow ${currentHash === '#about' ? 'text-glow-active' : ''}`}>About</Link></li>
                   <li><Link to="/show/shop" className='text-glow'>Shop</Link></li>
-                  <li className='space-x-2'>
-                      <button onClick={handleOpenLogin} className='hover:bg-dark-900 w-20 h-15 hover:border hover:border-dark-700 rounded-xl transition-all duration-300 ease-in'>LogIn</button>
-                      <button onClick={handleOpenSignUp} className='bg-dark-900 w-20 h-15 border border-dark-700 rounded-xl'>SignUp</button>
-                  </li>
+                  {!isLogin ? (
+                    <li className='space-x-2'>
+                       <button onClick={handleOpenLogin} className='hover:bg-dark-900 w-20 h-15 hover:border hover:border-dark-700 rounded-xl transition-all duration-300 ease-in'>LogIn</button>
+                       <button onClick={handleOpenSignUp} className='bg-dark-900 w-20 h-15 border border-dark-700 rounded-xl'>SignUp</button>
+                   </li>
+                  ) : (
+                    <li>
+                       <div className='flex justify-center items-center border-l-2 border-text-1 cursor-pointer' onClick={handleProfilePage}>
+                        <img src={test} alt='user' className='m-3 w-10 h-10 rounded-full border-2 border-text-1'/>
+                        <p>User Name</p>
+                       </div>
+                    </li>
+                  )}
               </ul>
           </div>
       </div>

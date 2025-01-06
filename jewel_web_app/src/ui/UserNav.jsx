@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from '/white-logo.png';
 import { CgProfile } from "react-icons/cg";
@@ -11,10 +11,10 @@ import { TbDeviceIpadDollar } from "react-icons/tb";
 import { AlertLogIn } from "../messages/Messages";
 
 export default function UserNav() {
-    const [activePage, setActivePage] = useState("shop"); 
+    const [activePage, setActivePage] = useState(""); 
     const navigate = useNavigate();
 
-    const user_role = 'user';
+    const user_role = 'admin';
     const isLogIn = true;
 
     const handleNavigation = (id) => {
@@ -26,6 +26,13 @@ export default function UserNav() {
         }
     }
 
+    useEffect(() => {
+        const path = window.location.pathname;
+        const segment = path.split('/');
+        const last = segment.pop();
+        setActivePage(last);
+    },[setActivePage]);
+
 
     const menuItems = [
         ...(isLogIn ? [ { id: "profile", icon: <CgProfile /> } ] : []),
@@ -34,7 +41,7 @@ export default function UserNav() {
         ...(isLogIn ? [ 
             { id: "cart", icon: <HiShoppingCart /> },
             { id: "history", icon: <FaHistory /> } ] : []),
-        ...(user_role === 'admin' ? [ { id: "add" , icon : <TiUserAdd />} ] : []),
+        ...(user_role === 'admin' ? [ { id: "addSeller" , icon : <TiUserAdd />} ] : []),
         ...(user_role === 'seller' ? [ { id : "sell" , icon : <TbDeviceIpadDollar />} ] : [])
     ];
 
