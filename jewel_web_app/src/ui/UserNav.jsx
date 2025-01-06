@@ -8,13 +8,14 @@ import { HiShoppingCart } from "react-icons/hi";
 import { FaHistory } from "react-icons/fa";
 import { TiUserAdd } from "react-icons/ti";
 import { TbDeviceIpadDollar } from "react-icons/tb";
+import { AlertLogIn } from "../messages/Messages";
 
 export default function UserNav() {
     const [activePage, setActivePage] = useState("shop"); 
     const navigate = useNavigate();
 
     const user_role = 'user';
-    const isLogIn = false;
+    const isLogIn = true;
 
     const handleNavigation = (id) => {
         setActivePage(id);
@@ -24,6 +25,7 @@ export default function UserNav() {
             navigate(`/show/${id}`);
         }
     }
+
 
     const menuItems = [
         ...(isLogIn ? [ { id: "profile", icon: <CgProfile /> } ] : []),
@@ -73,6 +75,8 @@ export default function UserNav() {
                     ))}
                 </div>
             </div>
+
+            {!isLogIn && <AlertLogIn />}
         </>
     );
 }
