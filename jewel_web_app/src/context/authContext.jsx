@@ -2,16 +2,19 @@
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { createContext, useContext, useState } from 'react';
-import { AlertAfterLogIn, ErrorLogin } from '../messages/Messages';
+import { AlertAfterLogIn, ErrorLogin, LogOutMessage } from '../messages/Messages';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+
   const [user, setUser] = useState(null); 
+  const [userRole , setUserRole] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isAuth , setIsAuth] = useState(false); 
   const [error , setError] = useState(null);
   const [success , setSuccess] = useState(null);
+
 
   const login = async (email, password) => {
       setLoading(true);
@@ -28,7 +31,8 @@ export const AuthProvider = ({ children }) => {
                 userId : userId
             });
             
-            setUser(responseUser);          
+            setUser(responseUser);
+            setUserRole(user.data.data.response[0].UserRole);         
             setIsAuth(true);
             setSuccess(<AlertAfterLogIn />)
             setTimeout(() => {
@@ -47,12 +51,18 @@ export const AuthProvider = ({ children }) => {
     };
 
     const logout = () => {
-    setUser(null);
-    localStorage.removeItem('token');
+      setUser(null);
+      localStorage.removeItem('token');
+      setIsAuth(false);
+      setUser(null);
+      setSuccess(null);
+      setError(null);
+      setUserRole(null);
+      setSuccess(<LogOutMessage />)
     };
 
   return (
-    <AuthContext.Provider value={{isAuth , user, loading, error, login, logout , success}}>
+    <AuthContext.Provider value={{isAuth , user, loading, error, login, logout , success , userRole}}>
       {children}
     </AuthContext.Provider>
   );

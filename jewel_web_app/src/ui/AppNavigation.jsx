@@ -6,7 +6,7 @@ export default function AppNavigation({ children }) {
   const location = useLocation();
 
   useEffect(() => {
-    const hash = location.hash; // Extrag #home, #about etc.
+    const hash = location.hash; 
     if (hash) {
       const element = document.querySelector(hash);
       if (element) {

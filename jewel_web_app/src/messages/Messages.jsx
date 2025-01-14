@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router";
 import { Alert } from "./Alert";
-import PropTypes from "prop-types";
 
 export function AlertLogIn() {
     const navigate = useNavigate();
@@ -26,6 +25,8 @@ export function ErrorLogin() {
     )
 }
 
-ErrorLogin.propTypes = {
-    error_msg : PropTypes.string.isRequired
+export function LogOutMessage() {
+    return(
+        <Alert>You have logged out!</Alert>
+    )
 }

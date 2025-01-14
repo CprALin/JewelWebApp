@@ -9,13 +9,20 @@ import { FaHistory } from "react-icons/fa";
 import { TiUserAdd } from "react-icons/ti";
 import { TbDeviceIpadDollar } from "react-icons/tb";
 import { AlertLogIn } from "../messages/Messages";
+import { useAuth } from "../context/authContext";
 
 export default function UserNav() {
+    const { userRole , isAuth } = useAuth();
     const [activePage, setActivePage] = useState(""); 
     const navigate = useNavigate();
+    const [user_role , setUserRole] = useState("");
 
-    const user_role = 'seller';
-    const isLogIn = true;
+    useEffect(() => {
+        if(isAuth)
+        {
+            setUserRole(userRole);
+        }
+    },[isAuth , userRole])
 
     const handleNavigation = (id) => {
         setActivePage(id);
@@ -35,11 +42,11 @@ export default function UserNav() {
 
 
     const menuItems = [
-        ...(isLogIn ? [ { id: "profile", icon: <CgProfile /> } ] : []),
+        ...(isAuth ? [ { id: "profile", icon: <CgProfile /> } ] : []),
         { id: "/", icon: <IoHome /> },
         { id: "shop", icon: <FaBasketShopping /> },
-        ...(isLogIn ? [ 
-            { id: "cart", icon: <HiShoppingCart /> },
+        { id: "cart", icon: <HiShoppingCart /> },
+        ...(isAuth ? [ 
             { id: "history", icon: <FaHistory /> } ] : []),
         ...(user_role === 'admin' ? [ { id: "addSeller" , icon : <TiUserAdd />} ] : []),
         ...(user_role === 'seller' ? [ { id : "addJewel" , icon : <TbDeviceIpadDollar />} ] : [])
@@ -83,7 +90,7 @@ export default function UserNav() {
                 </div>
             </div>
 
-            {!isLogIn && <AlertLogIn />}
+            {!isAuth && <AlertLogIn />}
         </>
     );
 }

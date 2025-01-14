@@ -4,17 +4,30 @@ import { useEffect, useState } from 'react';
 import Login from './Login';
 import SignUp from './SignUp';
 import test from '/test.jpg';
+import { useAuth } from '../context/authContext';
+import DropDownList from './DropDownList';
+
 
 export default function NavBar() {
+    
+    const { isAuth , user } = useAuth();
     const [ isHidden ] = useState(false); //setIsHidden
     //const [ prevScrollPos , setPrevScrollPos ] = useState(0);
     const [ currentHash , setCurrentHash ] = useState('#home');
     const [ visibleLogin , setVisibleLogin ] = useState(false);
     const [ visibleSignUp , setVisibleSignUp ] = useState(false);
+    const [ isLogin , setIsLogin ] = useState(false);
 
     const navigate = useNavigate();
 
-    const isLogin = false;
+    useEffect(() => {
+        if(isAuth){
+           setIsLogin(true);
+        }else{
+           setIsLogin(false);
+        }
+    },[isAuth]);
+    
 
     const handleProfilePage = () => {
         navigate('/show/profile');
@@ -85,9 +98,10 @@ export default function NavBar() {
                    </li>
                   ) : (
                     <li>
-                       <div className='flex justify-center items-center border-l-2 border-text-1 cursor-pointer' onClick={handleProfilePage}>
+                       <div className='flex justify-center items-center border-l-2 border-text-1 cursor-pointer'>
                         <img src={test} alt='user' className='m-3 w-10 h-10 rounded-full border-2 border-text-1'/>
-                        <p>User Name</p>
+                        <p>{user.data.data.response[0].UserName}</p>
+                        <DropDownList onClick={handleProfilePage}/>
                        </div>
                     </li>
                   )}

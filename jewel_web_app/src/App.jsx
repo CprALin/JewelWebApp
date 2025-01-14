@@ -9,15 +9,25 @@ import Profile from "./ui/Profile"
 import History from "./ui/History"
 import NotFound from "./NotFound"
 import AddSeller from "./ui/AddSeller"
-import PropTypes from "prop-types"
 import AddJewel from "./ui/AddJewel"
-import { AuthProvider } from "./context/authContext"
+import { AuthProvider, useAuth } from "./context/authContext"
+import PropTypes from "prop-types"
 
-const userRole = 'seller';
 
 function RoleProtectedRoute({element , requiredRole , redirectPath}) {
+   const { userRole } = useAuth();
+
    if(userRole !== requiredRole) {
       return <Navigate to={redirectPath} />
+   }
+   return element;
+}
+
+function AuthProtectRoute({element , redirectPath}) {
+   const { isAuth } = useAuth();
+
+   if(!isAuth){
+       return <Navigate to={redirectPath} />
    }
    return element;
 }
@@ -44,22 +54,26 @@ const router = createBrowserRouter([
                  },
                  {
                     path : 'profile',
-                    element : <Profile />
+                    element : (
+                     <AuthProtectRoute element={<Profile />} redirectPath="/" /> 
+                    )
                  },
                  {
                     path : 'history',
-                    element : <History />
+                    element : (
+                     <AuthProtectRoute element={<History />} redirectPath="/" /> 
+                    )
                  },
                  {
                     path : 'addSeller',
                     element : (
-                        <RoleProtectedRoute element={<AddSeller />} requiredRole="admin" redirectPath="/"/> 
+                       <AuthProtectRoute element={<RoleProtectedRoute element={<AddSeller />} requiredRole="admin" redirectPath="/"/>} redirectPath="/"/> 
                     )
                  },
                  {
                     path : 'addJewel',
                     element : (
-                        <RoleProtectedRoute element={<AddJewel />} requiredRole="seller" redirectPath="/"/>
+                        <AuthProtectRoute element={<RoleProtectedRoute element={<AddJewel />} requiredRole="seller" redirectPath="/" />} redirectPath="/" />
                     )
                  }
               ]
@@ -89,4 +103,9 @@ RoleProtectedRoute.propTypes = {
     element : PropTypes.any,
     requiredRole : PropTypes.any,
     redirectPath : PropTypes.any
+}
+
+AuthProtectRoute.propTypes = {
+   element : PropTypes.any,
+   redirectPath : PropTypes.any
 }

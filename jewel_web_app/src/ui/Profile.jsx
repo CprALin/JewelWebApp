@@ -1,8 +1,11 @@
 import test from "/test.jpg"
 import { FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import { useAuth } from "../context/authContext";
 
 export default function Profile() {
+  const { user } = useAuth();
+
   return (
     <div className="flex flex-col justify-center items-center text-text-1">
       <div className="relative mt-10 flex justify-center items-center"> 
@@ -18,6 +21,7 @@ export default function Profile() {
               id="username"
               className="peer focus:outline-none transition-all bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 w-full p-2 mt-1 border-gray-300 focus:border-text-1 placeholder-transparent"
               placeholder="username"
+              value={user.data.data.response[0].UserName}
               required
             />
             <label
@@ -33,6 +37,7 @@ export default function Profile() {
               id="email"
               className="peer focus:outline-none transition-all bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 w-full p-2 mt-1 border-gray-300 focus:border-text-1 placeholder-transparent"
               placeholder="Email"
+              value={user.data.data.response[0].Email}
               required
             />
             <label

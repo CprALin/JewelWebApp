@@ -1,5 +1,5 @@
 import PropTypes from "prop-types"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useAuth } from "../context/authContext";
 import MiniSpinner from "../components/MiniSpinner";
 import { AlertAfterLogIn} from "../messages/Messages";
@@ -10,11 +10,16 @@ export default function Login({onClose , handleSwitchSignUp}){
     const [email , setEmail] = useState("");
     const [password , setPassword] = useState("");
 
+    useEffect(() => {
+        if (isAuth) {
+          onClose();
+        }
+    }, [isAuth, onClose]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         login(email , password); 
     };
-
 
     return(
        <div className="absolute z-30 w-full h-full">
