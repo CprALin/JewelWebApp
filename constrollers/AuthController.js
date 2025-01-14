@@ -4,7 +4,6 @@ const {executeStoredProcedure , readStoredProcedure , executeOutStoredProcedure 
 const {sendResponse} = require('../utils/appError');
 const jwt = require('jsonwebtoken');
 const catchAsync = require('../utils/catchAsync');
-const { Passport } = require('passport');
 
 const signToken = id => {
     return jwt.sign({id} , process.env.JWT_SECRET , {
@@ -95,6 +94,6 @@ exports.login = catchAsync(async (req , res) => {
     }
 });
 
-exports.test = catchAsync(async (req , res) => {
+/* exports.test = catchAsync(async (req , res) => {
     sendResponse(res , 200 , true , {message : 'Server is connected .'});
-});
+}); */

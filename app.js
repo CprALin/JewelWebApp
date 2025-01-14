@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const xss = require('xss-clean');
 //const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const cors = require('cors')
 
 const userRouter = require('./routes/UserRoutes');
 const {sendResponse} = require('./utils/appError');
@@ -29,6 +30,12 @@ app.use(express.json({ limit : '10kb'}));
 app.use(cookieParser());
 
 app.use(xss());
+
+app.use(cors({
+    origin : 'http://localhost:5173',
+    methods : ['GET' , 'POST' , 'PUT' , 'DELETE' , 'OPTIONS'],
+    credentials : true
+}));
 
 app.use('/api/v1/users' , userRouter);
 
