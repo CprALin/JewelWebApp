@@ -1,7 +1,21 @@
 import PropTypes from "prop-types"
+import { useState } from "react"
+import { useAuth } from "../context/authContext";
+import MiniSpinner from "../components/MiniSpinner";
+import { AlertAfterLogIn} from "../messages/Messages";
 
 
 export default function Login({onClose , handleSwitchSignUp}){
+    const { login , loading , isAuth , error} = useAuth();
+    const [email , setEmail] = useState("");
+    const [password , setPassword] = useState("");
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        login(email , password); 
+    };
+
+
     return(
        <div className="absolute z-30 w-full h-full">
            <div className="bg-black opacity-70 w-full h-full" />
@@ -9,13 +23,15 @@ export default function Login({onClose , handleSwitchSignUp}){
            <div className="absolute flex justify-center items-center z-50 rounded-3xl w-[350px] h-[500px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-text-1">
                  <button onClick={onClose} className="absolute top-5 right-10 text-text-1 text-glow text-3xl font-semibold cursor-pointer">X</button>
                  <p className="absolute top-20 text-3xl font-semibold">Login</p>
-                 <form className="flex justify-center items-center flex-col">
+                 <form className="flex justify-center items-center flex-col" onSubmit={handleSubmit}>
                     <div className="mb-4 relative">
                         <input
                             type="email"
                             id="email"
                             className="peer focus:outline-none transition-all bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 w-full p-2 mt-1 border-gray-300 focus:border-text-1 placeholder-transparent"
                             placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                         <label
@@ -32,6 +48,8 @@ export default function Login({onClose , handleSwitchSignUp}){
                             id="password"
                             className="peer focus:outline-none transition-all bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 w-full p-2 mt-1 border-gray-300 focus:border-text-1 placeholder-transparent"
                             placeholder="Email"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             required
                         />
                         <label
@@ -42,13 +60,16 @@ export default function Login({onClose , handleSwitchSignUp}){
                         </label>
                     </div>
 
-                    <button className="w-[5rem] h-[2rem] mt-2 bg-text-1 text-black border border-black rounded-md font-semibold hover:text-glow hover:shadow-xl">
-                        Log In
+                    <button className="w-[5rem] h-[2rem] mt-2 bg-text-1 text-black border border-black rounded-md font-semibold hover:text-glow hover:shadow-xl" type="submit"> 
+                       {loading ? <MiniSpinner /> : 'Log In' }
                     </button>
                     <p className="mt-5">Don&apos;t have an account ? | <button onClick={handleSwitchSignUp} className="text-glow">SignUp</button></p>
                  </form>
            </div>
+           {isAuth && <AlertAfterLogIn />}
+           {error}
        </div>
+
     )
 }
 

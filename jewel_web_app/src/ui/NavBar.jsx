@@ -14,7 +14,7 @@ export default function NavBar() {
 
     const navigate = useNavigate();
 
-    const isLogin = true;
+    const isLogin = false;
 
     const handleProfilePage = () => {
         navigate('/show/profile');

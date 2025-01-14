@@ -11,6 +11,7 @@ import NotFound from "./NotFound"
 import AddSeller from "./ui/AddSeller"
 import PropTypes from "prop-types"
 import AddJewel from "./ui/AddJewel"
+import { AuthProvider } from "./context/authContext"
 
 const userRole = 'seller';
 
@@ -75,7 +76,9 @@ function App() {
 
   return (
     <HelmetProvider>
-      <RouterProvider router={router} />
+      <AuthProvider>
+          <RouterProvider router={router} />
+      </AuthProvider>
     </HelmetProvider>
   )
 }
