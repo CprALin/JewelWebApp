@@ -30,3 +30,15 @@ export function LogOutMessage() {
         <Alert>You have logged out!</Alert>
     )
 }
+
+export function SignUpMessage() {
+    return(
+        <Alert>User signed up successfully !</Alert>
+    )
+}
+
+export function SignUpError() {
+    return(
+        <Alert>Registration faild . Email or Username already exist !</Alert>
+    )
+}

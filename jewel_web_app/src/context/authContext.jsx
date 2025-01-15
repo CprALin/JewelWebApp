@@ -2,7 +2,7 @@
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { createContext, useContext, useState } from 'react';
-import { AlertAfterLogIn, ErrorLogin, LogOutMessage } from '../messages/Messages';
+import { AlertAfterLogIn, ErrorLogin, LogOutMessage, SignUpError, SignUpMessage } from '../messages/Messages';
 
 const AuthContext = createContext();
 
@@ -15,6 +15,30 @@ export const AuthProvider = ({ children }) => {
   const [error , setError] = useState(null);
   const [success , setSuccess] = useState(null);
 
+  const signUp = async (userName , email , password) => {
+      setLoading(true);
+     
+      try{
+        await axios.post('http://localhost:3000/api/v1/users/signup' , {
+            userName,
+            email,
+            password
+        });
+
+        setSuccess(<SignUpMessage />)
+        setTimeout(() => {
+          setSuccess(null);    
+      },3000)
+      }catch(err){
+        console.log(err);
+        setError(<SignUpError />)
+        setTimeout(() => {
+          setError(null);    
+        },3000)
+      }finally{
+        setLoading(false);
+      }
+  }
 
   const login = async (email, password) => {
       setLoading(true);
@@ -62,7 +86,7 @@ export const AuthProvider = ({ children }) => {
     };
 
   return (
-    <AuthContext.Provider value={{isAuth , user, loading, error, login, logout , success , userRole}}>
+    <AuthContext.Provider value={{isAuth , user, loading, error, login, logout , signUp , success , userRole}}>
       {children}
     </AuthContext.Provider>
   );
