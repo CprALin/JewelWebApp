@@ -8,6 +8,9 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors')
 
 const userRouter = require('./routes/UserRoutes');
+const adminRouter = require('./routes/AdminRoutes');
+const auditRouter = require('./routes/AuditRoutes');
+const sellerRoute = require('./routes/SellerRoutes');
 const {sendResponse} = require('./utils/appError');
 
 // framework used for Restful API 
@@ -38,6 +41,9 @@ app.use(cors({
 }));
 
 app.use('/api/v1/users' , userRouter);
+app.use('/api/v1/admin' , adminRouter);
+app.use('/api/v1/audit' , auditRouter);
+app.use('/api/v1/seller' , sellerRoute);
 
 app.all('*' , (req, res ,next) => {
     next(sendResponse(res , 500 , false ,{message : `Can't find ${req.originalUrl} on this server!`}));

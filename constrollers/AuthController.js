@@ -13,8 +13,9 @@ const signToken = id => {
 
 const createSendToken = (user, statusCode , res) => {
     const token = signToken(user._id);
+    const cookieExpiryDays = parseInt(process.env.JWT_COOKIE_EXPIRES_IN, 10); 
     const cookieOptions = {
-        expires : new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
+        expires : new Date(Date.now() + cookieExpiryDays * 24 * 60 * 60 * 1000),
         httpOnly : true
     };
 
@@ -47,9 +48,9 @@ exports.signup = catchAsync(async (req , res) => {
 
         if(success)
         {
-            sendResponse(res , 200 , false , { message : 'Registered successffully !'});
+            sendResponse(res , 200 , true , { message : true});
         }else{
-            sendResponse(res , 400 , false , { message : 'Username or Email already exist .'});
+            sendResponse(res , 400 , false , { message : false});
         }
 
 });
