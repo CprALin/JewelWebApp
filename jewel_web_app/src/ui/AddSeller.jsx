@@ -1,17 +1,31 @@
+import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { SiKeepassxc } from "react-icons/si";
+import { useAuth } from "../context/authContext";
 
 export default function AddSeller() {
+  const {addRole , auditLog , success , error} = useAuth();
+  const [UserName , setUserName] = useState();
+  const [Email , setEmail] = useState();
+  const [UserRole , setUserRole] = useState();
+
+  const handleSubmit = (e) => {
+      e.preventDefault();
+      addRole(UserName, Email , UserRole);
+      auditLog('POST' , 'UserProfile' , 'UPDATE');
+  }
+
   return (
     <div className="mt-36 flex flex-col justify-center items-center text-text-1">
-          <form className="mt-10 flex justify-center items-center flex-col">
+          <form onSubmit={handleSubmit} className="mt-10 flex justify-center items-center flex-col">
             <div className="mb-4 relative">
                 <input
                   type="username"
                   id="username"
                   className="peer focus:outline-none transition-all bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 w-full p-2 mt-1 border-gray-300 focus:border-text-1 placeholder-transparent"
                   placeholder="username"
+                  onChange={(e) => setUserName(e.target.value)}
                   required
                 />
                 <label
@@ -27,6 +41,7 @@ export default function AddSeller() {
                   id="email"
                   className="peer focus:outline-none transition-all bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 w-full p-2 mt-1 border-gray-300 focus:border-text-1 placeholder-transparent"
                   placeholder="Email"
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
                 <label
@@ -42,6 +57,7 @@ export default function AddSeller() {
                   id="userrole"
                   className="peer focus:outline-none transition-all bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 w-full p-2 mt-1 border-gray-300 focus:border-text-1 placeholder-transparent"
                   placeholder="userrole"
+                  onChange={(e) => setUserRole(e.target.value)}
                   required
                 />
                 <label
@@ -51,10 +67,14 @@ export default function AddSeller() {
                   <SiKeepassxc />
                 </label>
             </div>
-            <button className="w-[8rem] h-[3rem] mt-2 bg-black text-text-1 border border-black rounded-md font-semibold hover:text-glow hover:shadow-xl">
+            <button type="submit" className="w-[8rem] h-[3rem] mt-2 bg-black text-text-1 border border-black rounded-md font-semibold hover:text-glow hover:shadow-xl">
                 Edit
             </button>
           </form>
+          <div>
+              {success}
+              {error}
+          </div>
     </div>
   )
 }

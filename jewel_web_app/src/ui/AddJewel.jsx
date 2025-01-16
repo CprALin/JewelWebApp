@@ -1,16 +1,31 @@
 import { useState } from 'react';
 import test from '/test.jpg';
+import { useAuth } from '../context/authContext';
 
 export default function AddJewel() {
+  const { addJewel , auditLog , success , error } = useAuth();  
+
+  const [jewelName, setJewelName] = useState('');
+  const [price, setPrice] = useState('');
+  const [discount, setDiscount] = useState('');
+  const [length, setLength] = useState('');
+  const [weight, setWeight] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [brand, setBrand] = useState('');
+  const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
+  const [material , setMaterial] = useState('');
+  const [status , setStatus] = useState('');
   const maxLength = 500;
 
-  const handleChange = (e) => {
-    setDescription(e.target.value);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addJewel(jewelName , description , price , discount , material , weight , length , category , quantity , brand , status);
+    auditLog('POST' , 'Jewels' , 'INSERT');
   };  
 
   return (
-    <form className="flex justify-center flex-col items-center mt-5">
+    <form onSubmit={handleSubmit} className="flex justify-center flex-col items-center mt-5">
         <div className="relative">
             <div className="w-[800px] h-[560px] bg-black opacity-35 blur-sm rounded-2xl"/>
             
@@ -24,6 +39,7 @@ export default function AddJewel() {
                     id="price"
                     className="peer focus:outline-none transition-all bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 w-full p-2 mt-1 border-gray-300 focus:border-text-1 placeholder-transparent"
                     placeholder="price"
+                    onChange={(e) => setPrice(e.target.value)}
                     required
                     />
                     <label
@@ -39,6 +55,7 @@ export default function AddJewel() {
                     id="discount"
                     className="peer focus:outline-none transition-all bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 w-full p-2 mt-1 border-gray-300 focus:border-text-1 placeholder-transparent"
                     placeholder="discount"
+                    onChange={(e) => setDiscount(e.target.value)}
                     required
                     />
                     <label
@@ -54,6 +71,7 @@ export default function AddJewel() {
                     id="length"
                     className="peer focus:outline-none transition-all bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 w-full p-2 mt-1 border-gray-300 focus:border-text-1 placeholder-transparent"
                     placeholder="length"
+                    onChange={(e) => setLength(e.target.value)}
                     required
                     />
                     <label
@@ -69,6 +87,7 @@ export default function AddJewel() {
                     id="weight"
                     className="peer focus:outline-none transition-all bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 w-full p-2 mt-1 border-gray-300 focus:border-text-1 placeholder-transparent"
                     placeholder="weight"
+                    onChange={(e) => setWeight(e.target.value)}
                     required
                     />
                     <label
@@ -84,6 +103,7 @@ export default function AddJewel() {
                     id="quantity"
                     className="peer focus:outline-none transition-all bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 w-full p-2 mt-1 border-gray-300 focus:border-text-1 placeholder-transparent"
                     placeholder="quantity"
+                    onChange={(e) => setQuantity(e.target.value)}
                     required
                     />
                     <label
@@ -101,6 +121,7 @@ export default function AddJewel() {
                         id="jewelname"
                         className="peer focus:outline-none transition-all bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 w-full p-2 mt-1 border-gray-300 focus:border-text-1 placeholder-transparent"
                         placeholder="jewelname"
+                        onChange={(e) => setJewelName(e.target.value)}
                         required
                         />
                         <label
@@ -116,6 +137,7 @@ export default function AddJewel() {
                         id="brand"
                         className="peer focus:outline-none transition-all bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 w-full p-2 mt-1 border-gray-300 focus:border-text-1 placeholder-transparent"
                         placeholder="brand"
+                        onChange={(e) => setBrand(e.target.value)}
                         required
                         />
                         <label
@@ -131,6 +153,7 @@ export default function AddJewel() {
                         id="category"
                         className="peer focus:outline-none transition-all bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 w-full p-2 mt-1 border-gray-300 focus:border-text-1 placeholder-transparent"
                         placeholder="category"
+                        onChange={(e) => setCategory(e.target.value)}
                         required
                         />
                         <label
@@ -140,11 +163,43 @@ export default function AddJewel() {
                           Category
                         </label>
                 </div>
-                <div className="mt-32 relative">
+                <div className="mb-4 relative">
+                        <input
+                        type="material"
+                        id="material"
+                        className="peer focus:outline-none transition-all bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 w-full p-2 mt-1 border-gray-300 focus:border-text-1 placeholder-transparent"
+                        placeholder="material"
+                        onChange={(e) => setMaterial(e.target.value)}
+                        required
+                        />
+                        <label
+                        htmlFor="material"
+                        className="absolute left-3 top-0 transform -translate-y-1/2 text-text-1 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:-translate-y-1/2 peer-focus:top-0 peer-focus:text-text-1 transition-all duration-300"
+                        >
+                          Material
+                        </label>
+                </div>
+                <div className="mb-4 relative">
+                        <input
+                        type="status"
+                        id="status"
+                        className="peer focus:outline-none transition-all bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 w-full p-2 mt-1 border-gray-300 focus:border-text-1 placeholder-transparent"
+                        placeholder="status"
+                        onChange={(e) => setStatus(e.target.value)}
+                        required
+                        />
+                        <label
+                        htmlFor="status"
+                        className="absolute left-3 top-0 transform -translate-y-1/2 text-text-1 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:-translate-y-1/2 peer-focus:top-0 peer-focus:text-text-1 transition-all duration-300"
+                        >
+                          Status
+                        </label>
+                </div>
+                <div className="mt-10 relative">
                     <textarea
                         id="description"
                         value={description}
-                        onChange={handleChange}
+                        onChange={(e) => setDescription(e.target.value)}
                         maxLength={maxLength}
                         className="peer focus:outline-none transition-all bg-transparent border-2 w-full p-2 mt-1 border-gray-300 focus:border-text-1 placeholder-transparent resize-none scrollbar-hide overflow-auto"
                         placeholder="Enter your description"
@@ -163,9 +218,13 @@ export default function AddJewel() {
                 </div>                
             </div>
         </div>
-        <button className="w-[20rem] h-[3rem] mt-10 bg-black text-text-1 border border-black rounded-md font-semibold hover:text-glow hover:shadow-xl">
+        <button type='submit' className="w-[20rem] h-[3rem] mt-10 bg-black text-text-1 border border-black rounded-md font-semibold hover:text-glow hover:shadow-xl">
             List for sale
         </button>
+        <div>
+            {success}
+            {error}
+        </div>
     </form>
   )
 }

@@ -42,3 +42,27 @@ export function SignUpError() {
         <Alert>Registration faild . Email or Username already exist !</Alert>
     )
 }
+
+export function AddRoleSuccess() {
+    return(
+        <Alert>You changed role successfully.</Alert>
+    )
+}
+
+export function ErrorAddRole() {
+    return(
+        <Alert>Please provide valid info.</Alert>
+    )
+}
+
+export function AddJewelsuccess() {
+    return(
+        <Alert>Jewel added successfully.</Alert>
+    )
+}
+
+export function ErrorAddJewel() {
+    return(
+        <Alert>Please provide valid info.</Alert>
+    )
+}
